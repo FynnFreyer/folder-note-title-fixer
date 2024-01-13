@@ -1,5 +1,6 @@
 import {Notice, Platform, Plugin, WorkspaceLeaf} from 'obsidian'
-import {isPluginEnabled, NoteLoc} from "@aidenlx/folder-note-core";
+import {isPluginEnabled} from "@aidenlx/folder-note-core";
+import {NoteLoc} from "@aidenlx/folder-note-core/lib/typings/api";
 
 const name = 'folder-note-title-fixer'
 
