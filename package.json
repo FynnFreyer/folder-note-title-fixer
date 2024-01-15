@@ -1,6 +1,6 @@
 {
 	"name": "folder-note-title-fixer",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Makes the tab title display the folder name when using AidenLx's Folder Note with index notes.",
 	"main": "main.js",
 	"scripts": {

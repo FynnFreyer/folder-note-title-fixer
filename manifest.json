@@ -1,7 +1,7 @@
 {
 	"id": "folder-note-title-fixer",
 	"name": "Folder Note Title Fixer",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"minAppVersion": "0.15.0",
 	"description": "Makes the tab title display the folder name when using AidenLx's Folder Note with index notes.",
 	"author": "Fynn Freyer",
