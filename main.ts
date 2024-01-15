@@ -1,4 +1,4 @@
-import {Notice, Platform, Plugin, WorkspaceLeaf} from 'obsidian'
+import {normalizePath, Notice, Plugin, WorkspaceLeaf} from 'obsidian'
 import {isPluginEnabled} from "@aidenlx/folder-note-core";
 import {NoteLoc} from "@aidenlx/folder-note-core/lib/typings/api";
 
@@ -7,18 +7,9 @@ const name = 'folder-note-title-fixer'
 
 export default class FolderNoteTitleFixerPlugin extends Plugin {
 	/**
-	 * The path separator on this system. Used for splitting paths and as visual indicator.
-	 * @type string sep - The path separator on this system.
-	 */
-	sep: string = "/"
-
-	/**
 	 * Load the app. Called on startup or when enabling the plugin.
 	 */
 	async onload() {
-		if (Platform.isWin)
-			this.sep = '\\'
-
 		// TODO improvement: hook into folder-note:api-ready event to activate the extension
 		// bail if folder-note-core is unavailable
 		if (!isPluginEnabled(this)) {
@@ -91,9 +82,6 @@ export default class FolderNoteTitleFixerPlugin extends Plugin {
 		const viewState = leaf.getViewState()
 		const fileName: string | undefined = viewState.state.file
 
-		// @ts-ignore don't mind me, this is JUST fine =)  // TODO: actually, this kinda sucks
-		// const indexName = app.plugins.plugins["folder-note-core"]?.settings?.indexName
-
 		// only work on markdown notes with the appropriate name for folder notes
 		if (viewState.type !== "markdown"
 			|| typeof fileName === "undefined"  // this shouldn't happen if we have type markdown, but let's be safe
@@ -101,8 +89,8 @@ export default class FolderNoteTitleFixerPlugin extends Plugin {
 			return
 
 		// get the name of the containing folder
-		const parents = fileName.split(this.sep).slice(0, -1)
-		const parent = parents.at(-1) + this.sep  // keep trailing seperator as visual indicator
+		const parents = normalizePath(fileName).split('/').slice(0, -1)
+		const parent = parents.at(-1) + '/'  // keep trailing seperator as visual indicator
 
 		// and set the title if necessary
 		// @ts-ignore
